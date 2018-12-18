@@ -1,0 +1,5 @@
+contentful
+contentful-management
+python-dotenv
+python-dateutil
+ipython

@@ -1,0 +1,28 @@
+service: monitor-consultorio
+
+provider:
+    name: aws
+    runtime: python3.7
+    stage: dev
+    region: us-east-1
+    environment:
+        CF_SPACE_ID: ${env:CF_SPACE_ID}
+        CF_CMA_TOKEN: ${env:CF_CMA_TOKEN}
+        APP_ENV: ${env:APP_ENV}
+
+functions:
+    monitor_consultorio:
+        handler: handler.monitor
+        events:
+            - http:
+                path: monitor
+                method: post
+                cors: true
+    health_check:
+        handler: handler.health
+        events:
+            - http:
+                path: health
+                method: post
+                cors: true
+            - schedule: rate(2 minutes)
